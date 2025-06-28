@@ -26,7 +26,7 @@ console.log(user.userid);
         title: titleValue,
         content: descriptionValue,
       });
-      // alert("Question Posted successfully");
+      alert("Question Posted successfully");
       navigate("/home");
     } catch (error) {
       // alert("server error");

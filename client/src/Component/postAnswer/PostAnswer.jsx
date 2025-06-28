@@ -18,9 +18,9 @@ function PostAnswer() {
       return;
     }
     try {
-      await axiosBase.post(`/question/${question_id}/answer`, {
+      await axiosBase.post(`/answer/${question_id}`, {
         content: answerValue,
-        user_id: user.userid
+        user_id: user.userid,
       });
       alert("Answer Posted successfully");
       navigate("/home");
