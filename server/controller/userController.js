@@ -4,8 +4,10 @@ const dbconnection = require("../db/dbconfig.js");
 
 const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
+require("dotenv").config();
 
 const jwt = require("jsonwebtoken");
+
 
 // controller for registration
 
@@ -94,6 +96,13 @@ async function login(req, res) {
     }
     const user_name = user[0].user_name;
     const user_id = user[0].user_id;
+    if (!process.env.JWT_SECRET) {
+      console.error("JWT_SECRET is missing!");
+      return res
+        .status(500)
+        .json({ message: "Server misconfiguration: missing JWT secret." });
+    }
+    
 
     const token = jwt.sign({ user_name, user_id }, process.env.JWT_SECRET, { expiresIn: "1d" }) 
     
