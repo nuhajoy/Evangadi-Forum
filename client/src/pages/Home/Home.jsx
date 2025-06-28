@@ -26,7 +26,7 @@ function Home() {
         <div className={style.container}>
           <Link to='/ask-question' className={style.btn}> Ask Question</Link>
           <div>
-            <h2>Welcome, {user.username}</h2>
+            <h2>Welcome, {user.user_name}</h2>
           </div>
         </div>
         <div className={style.title}><h1>Question</h1></div>
