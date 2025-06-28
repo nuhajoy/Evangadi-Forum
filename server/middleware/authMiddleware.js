@@ -1,43 +1,30 @@
 const { StatusCodes } = require("http-status-codes");
 require("dotenv").config();
+
 const jwt = require("jsonwebtoken");
-
 async function authMiddleware(req, res, next) {
-  const authHeader = req.headers.authorization;
-
-  // 🔒 Check if Authorization header is present and starts with Bearer
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    console.warn("No valid Authorization header.");
-    return res.status(StatusCodes.UNAUTHORIZED).json({
-      message: "Authentication invalid — token missing",
-    });
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    // ✅ Verify JWT and extract user info
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (!decoded?.user_name || !decoded?.user_id) {
-      console.warn("Token decoded but missing user data:", decoded);
-      return res.status(StatusCodes.UNAUTHORIZED).json({
-        message: "Authentication invalid — incomplete token payload",
-      });
+    const authHeader = req.headers.authorization;
+    // Check if the user is authenticated
+  
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        // If the authorization header is missing or does not start with "Bearer ", return an error
+        return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Authentication invalid" });
     }
+    const token = authHeader.split(" ")[1];
+    // console.log(authHeader)
+    // console.log(token)
+    // Verify the token using jwt.verify
 
-    req.user = {
-      user_name: decoded.user_name,
-      user_id: decoded.user_id,
-    };
-
-    next();
-  } catch (error) {
-    console.error("Token verification failed:", error.message);
-    return res.status(StatusCodes.UNAUTHORIZED).json({
-      message: "Authentication invalid — token rejected",
-    });
-  }
+    try {
+        const { user_name, user_id } = jwt.verify(token, process.env.JWT_SECRET);
+        // If the token is valid, attach user information to the request object
+        req.user = { user_name, user_id };
+        // If the user is authenticated, proceed to the next middleware or route handler
+        next()
+    } catch (error) {
+        return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Authentication invalid" });
+        
+    }
 }
 
-module.exports = authMiddleware;
+module.exports = authMiddleware
