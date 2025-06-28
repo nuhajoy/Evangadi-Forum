@@ -3,6 +3,7 @@ import style from './Post.module.css'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from '../../API/axiosConfig';
 import {appState} from '../../App'
+import axiosBase from '../../API/axiosConfig';
 
 function PostAnswer() {
   const { user } = useContext(appState);
@@ -17,7 +18,7 @@ function PostAnswer() {
       return;
     }
     try {
-      await axios.post(`/question/${question_id}/answer`, {
+      await axiosBase.post(`/question/${question_id}/answer`, {
         content: answerValue,
         user_id: user.userid
       });

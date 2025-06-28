@@ -6,6 +6,7 @@ import axios from '../../API/axiosConfig';
 import { useParams } from 'react-router-dom';
 import {FadeLoader} from 'react-spinners'
 import PostAnswer from '../../Component/postAnswer/PostAnswer';
+import axiosBase from '../../API/axiosConfig';
 
 function QuesAndAnw() {
   const [question, setQuestion] = useState(null)
@@ -13,7 +14,7 @@ function QuesAndAnw() {
   useEffect(() => {
     const getQuestion = async () => {
       try {
-        await axios
+        await axiosBase
           .get(`/question/${question_id}`)
           .then((res) => {
             setQuestion(res.data);

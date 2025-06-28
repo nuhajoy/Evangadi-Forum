@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from '../../API/axiosConfig'
 import QuestionCard from './QuestionCard'
 import style from './question.module.css'
+import axiosBase from '../../API/axiosConfig'
 
 function Question() {
   const [questions, setQuestions] = useState([])
@@ -9,7 +10,7 @@ function Question() {
   useEffect(() => {
     const getQuestions = async () => {
       try {
-        await axios
+        await axiosBase
           .get("/question")
           .then((res) => {
             setQuestions(res.data);

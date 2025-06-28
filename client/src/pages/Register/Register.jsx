@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom"; // ✅ Use `useNavigate` for redirection
 import styles from "./register.module.css";
 import axios from "../../API/axiosConfig"; // ✅ Import axios for API requests
+import axiosBase from "../../API/axiosConfig";
 
 function Register() {
   const usernameDom = useRef();
@@ -31,7 +32,7 @@ function Register() {
     }
 
     try {
-      await axios.post("/user/register", {
+      await axiosBase.post("/user/register", {
         user_name: usernameValue,
         first_name: firstnameValue,
         last_name: lastnameValue,

@@ -6,6 +6,7 @@ import { AiOutlineDislike } from "react-icons/ai";
 import { GoComment } from "react-icons/go";
 import axios from '../../API/axiosConfig'
 import {appState} from '../../App'
+import axiosBase from '../../API/axiosConfig';
 
 
 
@@ -23,7 +24,7 @@ console.log(user);
   useEffect(() => {
     const fetchReactions = async () => {
       try {
-        const res = await axios.get(`/answer/${data.answer_id}/react`);
+        const res = await axiosBase.get(`/answer/${data.answer_id}/react`);
         console.log(res);
         setLikeCount(res.data.likeCount);
         setDislikeCount(res.data.dislikeCount);
@@ -44,7 +45,7 @@ console.log(user);
     
       try {
         
-        await axios.post(`/answer/${data.answer_id}/react`, {
+        await axiosBase.post(`/answer/${data.answer_id}/react`, {
           reaction_type: reaction,
           user_id: user.userid
         });
@@ -103,7 +104,7 @@ console.log(user);
   
   const getComment = async () => {
     try {
-      const res = await axios.get(`/answer/${data.answer_id}/comment`);
+      const res = await axiosBase.get(`/answer/${data.answer_id}/comment`);
       console.log("Fetched comments:", res.data);
       setComments(res.data); 
       setShowComments(!showComments);
@@ -122,7 +123,7 @@ console.log(user);
   const postComment = async () => {
     
     try {
-      await axios.post(`/answer/${data.answer_id}/comment`, {
+      await axiosBase.post(`/answer/${data.answer_id}/comment`, {
         content: newComment,
         user_id: user.userid,
       });

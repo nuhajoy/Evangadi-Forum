@@ -4,6 +4,7 @@ import Layout from '../../Component/layout/Layout'
 import axios from '../../API/axiosConfig'
 import { useNavigate } from 'react-router-dom'
 import {appState} from '../../App'
+import axiosBase from '../../API/axiosConfig'
 
 function AskQuestion() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ console.log(user.userid);
       return;
     }
     try {
-      await axios.post("/question", {
+      await axiosBase.post("/question", {
         user_id: user.userid,
         title: titleValue,
         content: descriptionValue,

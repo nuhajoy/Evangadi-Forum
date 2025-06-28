@@ -6,6 +6,7 @@ import { appState } from "../../App";
 import { BiHide, BiShow } from "react-icons/bi";
 import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import axiosBase from "../../API/axiosConfig";
 
 function Login() {
   const emailRef = useRef();
@@ -31,7 +32,7 @@ function Login() {
     }
 
     try {
-      const response = await axios.post("/user/login", {
+      const response = await axiosBase.post("/user/login", {
         email: emailValue,
         password: passwordValue,
       });
