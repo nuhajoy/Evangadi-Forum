@@ -23,7 +23,7 @@ async function register(req, res) {
   try {
     // check if user already exists
     const [user] = await dbconnection.query(
-      "SELECT user_name, user_id FROM usertable WHERE user_name = ? OR email = ?",
+      "SELECT user_name, user_id FROM userTable WHERE user_name = ? OR email = ?",
       [user_name, email]
     )
       if (user.length > 0) {
@@ -43,7 +43,7 @@ async function register(req, res) {
 
 
     await dbconnection.execute(
-      "INSERT INTO usertable (user_name, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO userTable (user_name, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)",
       [user_name, first_name, last_name, email, hashedPassword])
     return res.status(StatusCodes.CREATED).json({
       message: "User registered successfully",
@@ -73,7 +73,7 @@ async function login(req, res) {
   }
   try {
     const [user] = await dbconnection.query(
-      "SELECT user_name,user_id,password FROM usertable WHERE email = ?",
+      "SELECT user_name,user_id,password FROM userTable WHERE email = ?",
       [email]
     );
     //  return res.json(users);
@@ -112,6 +112,7 @@ async function login(req, res) {
     });
     
   } catch (error) {
+    console.log("Login request body:", req.body);
     console.error(error.message);
     return res.status(500).json({
       message: "Something went wrong , please try again later",

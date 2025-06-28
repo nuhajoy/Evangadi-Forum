@@ -44,7 +44,7 @@ function register(req, res) {
         case 3:
           _context.prev = 3;
           _context.next = 6;
-          return regeneratorRuntime.awrap(dbconnection.query("SELECT user_name, user_id FROM usertable WHERE user_name = ? OR email = ?", [user_name, email]));
+          return regeneratorRuntime.awrap(dbconnection.query("SELECT user_name, user_id FROM userTable WHERE user_name = ? OR email = ?", [user_name, email]));
 
         case 6:
           _ref = _context.sent;
@@ -82,7 +82,7 @@ function register(req, res) {
         case 18:
           hashedPassword = _context.sent;
           _context.next = 21;
-          return regeneratorRuntime.awrap(dbconnection.execute("INSERT INTO usertable (user_name, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", [user_name, first_name, last_name, email, hashedPassword]));
+          return regeneratorRuntime.awrap(dbconnection.execute("INSERT INTO userTable (user_name, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)", [user_name, first_name, last_name, email, hashedPassword]));
 
         case 21:
           return _context.abrupt("return", res.status(StatusCodes.CREATED).json({
@@ -128,7 +128,7 @@ function login(req, res) {
         case 3:
           _context2.prev = 3;
           _context2.next = 6;
-          return regeneratorRuntime.awrap(dbconnection.query("SELECT user_name,user_id,password FROM usertable WHERE email = ?", [email]));
+          return regeneratorRuntime.awrap(dbconnection.query("SELECT user_name,user_id,password FROM userTable WHERE email = ?", [email]));
 
         case 6:
           _ref3 = _context2.sent;
@@ -190,12 +190,13 @@ function login(req, res) {
         case 25:
           _context2.prev = 25;
           _context2.t0 = _context2["catch"](3);
+          console.log("Login request body:", req.body);
           console.error(_context2.t0.message);
           return _context2.abrupt("return", res.status(500).json({
             message: "Something went wrong , please try again later"
           }));
 
-        case 29:
+        case 30:
         case "end":
           return _context2.stop();
       }
