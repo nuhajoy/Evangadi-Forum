@@ -3,7 +3,7 @@ const express = require("express");
 
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // cors middleware for handling cross-origin requests
 const cors = require("cors");
@@ -46,7 +46,9 @@ app.use("/api/answer", authMiddleware, answerRoute);
 
 
 
-
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 async function testDbConnection() {
 
     try {
