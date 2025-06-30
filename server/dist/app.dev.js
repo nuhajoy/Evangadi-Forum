@@ -2,6 +2,8 @@
 
 var express = require("express");
 
+var reactionRoute = require("./routes/reactionRoute");
+
 require("dotenv").config();
 
 var app = express();
@@ -31,7 +33,9 @@ app.use("/api/question", authMiddleware, questionRoute); //  answer routes middl
 var answerRoute = require("./routes/answerRoute.js");
 
 app.use(express.json());
-app.use("/api/answer", authMiddleware, answerRoute);
+app.use("/api/answer", authMiddleware, answerRoute); // reaction route middleware
+
+app.use("/api/answer", reactionRoute);
 app.get("/", function (req, res) {
   res.send("API is running...");
 });
