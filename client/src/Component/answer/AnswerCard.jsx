@@ -51,32 +51,32 @@ console.log(user);
         });
 
 
-        // if (activeBtn === "none") {
-        //   if (reaction === "like") {
-        //     setLikeCount(likeCount + 1);
-        //     setActiveBtn("like");
-        //   } else if (reaction === "dislike") {
-        //     setDislikeCount(dislikeCount + 1);
-        //     setActiveBtn("dislike");
-        //   }
-        // } else if (activeBtn === reaction) {
-        //   if (reaction === "like") {
-        //     setLikeCount(likeCount - 1);
-        //   } else if (reaction === "dislike") {
-        //     setDislikeCount(dislikeCount - 1);
-        //   }
-        //   setActiveBtn("none");
-        // } else if (activeBtn !== reaction) {
-        //   if (reaction === "like") {
-        //     setLikeCount(likeCount + 1);
-        //     setDislikeCount(dislikeCount - 1);
-        //     setActiveBtn("like");
-        //   } else if (reaction === "dislike") {
-        //     setDislikeCount(dislikeCount + 1);
-        //     setLikeCount(likeCount - 1);
-        //     setActiveBtn("dislike");
-        //   }
-        // }
+        if (activeBtn === "none") {
+          if (reaction === "like") {
+            setLikeCount(likeCount + 1);
+            setActiveBtn("like");
+          } else if (reaction === "dislike") {
+            setDislikeCount(dislikeCount + 1);
+            setActiveBtn("dislike");
+          }
+        } else if (activeBtn === reaction) {
+          if (reaction === "like") {
+            setLikeCount(likeCount - 1);
+          } else if (reaction === "dislike") {
+            setDislikeCount(dislikeCount - 1);
+          }
+          setActiveBtn("none");
+        } else if (activeBtn !== reaction) {
+          if (reaction === "like") {
+            setLikeCount(likeCount + 1);
+            setDislikeCount(dislikeCount - 1);
+            setActiveBtn("like");
+          } else if (reaction === "dislike") {
+            setDislikeCount(dislikeCount + 1);
+            setLikeCount(likeCount - 1);
+            setActiveBtn("dislike");
+          }
+        }
 
         if (activeBtn === "none") {
           reaction === "like"
@@ -102,37 +102,7 @@ console.log(user);
    
   }
   
-  const getComment = async () => {
-    try {
-      const res = await axiosBase.get(`/answer/${data.answer_id}/comment`);
-      console.log("Fetched comments:", res.data);
-      setComments(res.data); 
-      setShowComments(!showComments);
-    } catch (err) {
-      console.error("Error fetching comments:", err.message);
-    }
-  };
-  const toggleComments = async () => {
-    if (!showComments) {
-      await getComment();
-    }
-    setShowComments(!showComments);
-  };
-
-  
-  const postComment = async () => {
-    
-    try {
-      await axiosBase.post(`/answer/${data.answer_id}/comment`, {
-        content: newComment,
-        user_id: user.userid,
-      });
-      setNewComment(""); 
-      getComment(); 
-    } catch (err) {
-      console.error(" Error posting comment:", err.message);
-    }
-  };
+ 
 
   return (
     <div className={style.main_card_container}>
