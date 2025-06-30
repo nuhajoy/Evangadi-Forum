@@ -1,6 +1,5 @@
 
 const express = require("express");
-const reactionRoute = require("./routes/reactionRoute");
 require("dotenv").config();
 
 
@@ -44,10 +43,6 @@ const answerRoute = require("./routes/answerRoute.js");
 app.use(express.json()); 
 
 app.use("/api/answer", authMiddleware, answerRoute);
-
-// reaction route middleware
-app.use("/api/answer", reactionRoute); 
-
 
 
 
